@@ -72,23 +72,24 @@ async def request_api(username):
     headers = {
         "Referer": "https://www.instagram.com/{}/".format(username),
         "X-CSRFToken": csrf_token,
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "application/json",
         "X-IG-App-ID": "936619743392459",
         "X-IG-WWW-Claim": "0",
-        "X-Requested-With": "XMLHttpRequest",
     }
     cookies = {
         "csrftoken": csrf_token,
     }
 
     async with aiohttp.ClientSession(headers=headers, cookies=cookies) as session:
-        async with session.get(f"https://www.instagram.com/{username}/feed/?__a=1") as r:
+        async with session.get(f"https://www.instagram.com/{username}/feed/?__a=1&__d=dis") as r:
             response = await r.json()
     return response
 
 
 async def main():
-    print(await get_latest_instagram_post('sogga_united', 1))
+    print(await get_latest_instagram_post('adele', 1))
     # print(await check_instagram_user('adele'))
 if __name__ == "__main__":
-    for _ in range(10):
+    for _ in range(1):
         asyncio.run(main())

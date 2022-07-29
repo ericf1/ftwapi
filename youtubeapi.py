@@ -1,7 +1,6 @@
 import os
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
-import dateutil.parser as dp
 import time
 import asyncio
 load_dotenv()
